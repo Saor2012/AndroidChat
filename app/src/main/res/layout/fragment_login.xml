@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="event"
+            type="com.example.androidchatclient.presentation.fragment.ILoginPresenter.Presenter" />
+    </data>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColorWhite"
+        tools:context=".presentation.fragment.LoginFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/login_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_marging_left_right"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/menu_marging_left_right"
+            android:layout_marginBottom="@dimen/menu_marging_bottom"
+            android:paddingLeft="@dimen/menu_padding"
+            android:paddingTop="@dimen/menu_padding"
+            android:paddingRight="@dimen/menu_padding"
+            android:paddingBottom="@dimen/menu_padding"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_connectBtn" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/login_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_marging_left_right"
+            android:layout_marginTop="@dimen/menu_marging_top"
+            android:layout_marginEnd="@dimen/menu_marging_left_right"
+            android:layout_marginBottom="@dimen/menu_marging_bottom"
+            android:paddingLeft="@dimen/menu_padding"
+            android:paddingTop="@dimen/menu_padding"
+            android:paddingRight="@dimen/menu_padding"
+            android:paddingBottom="@dimen/menu_padding"
+            android:text="Enter your login"
+            app:layout_constraintBottom_toTopOf="@+id/login_editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_connectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_marging_btn_left_right"
+            android:layout_marginTop="@dimen/menu_marging_btn_top"
+            android:layout_marginEnd="@dimen/menu_marging_btn_left_right"
+            android:layout_marginBottom="@dimen/menu_marging_btn_bottom"
+            android:text="Login"
+            android:onClick="@{() -> event.onLogin()}"
+            app:layout_constraintBottom_toTopOf="@+id/login_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_editText" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/login_editText"
+            android:layout_width="145dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/login_connectBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_textView2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
