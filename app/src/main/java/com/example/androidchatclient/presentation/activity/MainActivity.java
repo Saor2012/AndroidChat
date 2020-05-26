@@ -24,12 +24,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
     @Inject
     IRouter router;
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }*/
-
     @Override
     protected void initView() {
         router.onStart(this);
@@ -63,7 +57,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
 
     @Override
     public <T> void transactionActivity(Class<?> activity, T object) {
-
+        //TODO NOT USED
     }
 
     @Override
@@ -98,7 +92,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
 
     @Override
     public String getText() {
-        return String.valueOf(getBinding().includeMainContent.msgOutput);
+        return null;
+//        return String.valueOf(getBinding().includeMainContent.msgOutput);
+    }
+
+    @Override
+    public String getChatText() {
+        return null;
+//        return String.valueOf(getBinding().includeMainContent.textInput);
     }
 
     @Override
@@ -113,8 +114,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
 
     @Override
     public void setText(String message) {
-        String mainText = String.valueOf(getBinding().includeMainContent.textInput.getText());
-        mainText.concat("/n").concat(message);
-        getBinding().includeMainContent.textInput.setText(message);
+//        String mainText = String.valueOf(getBinding().includeMainContent.textInput.getText());
+//        mainText.concat("/n").concat(message);
+//        getBinding().includeMainContent.textInput.setText(message);
     }
 }

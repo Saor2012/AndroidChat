@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="menu_padding">4dp</dimen>
+    <dimen name="menu_padding_btn">6dp</dimen>
+    <dimen name="menu_marging_bottom">22dp</dimen>
+    <dimen name="menu_marging_top">22dp</dimen>
+    <dimen name="menu_marging_left_right">16dp</dimen>
+    <dimen name="menu_marging_btn_bottom">18dp</dimen>
+    <dimen name="menu_marging_btn_top">18dp</dimen>
+    <dimen name="menu_marging_btn_left_right">20dp</dimen>
+
+</resources>

@@ -23,9 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class RepositorySocket implements IRepositorySocket {
-    private final static String TAG = "";
-
-//    private static IRepositorySocket instance;
+    private final static String TAG = "RepositorySocket";
     protected final String adress = "10.0.2.2";
     protected final int port = 5599;
     private DataOutputStream out;
@@ -35,13 +33,6 @@ public class RepositorySocket implements IRepositorySocket {
 
     @Inject
     public RepositorySocket() {}
-
-    /*public static synchronized IRepositorySocket getInstance(){
-        if (instance == null) {
-            instance = new RepositorySocket();
-        }
-        return instance;
-    }*/
 
     @SuppressLint("CheckResult")
     @Override
@@ -110,6 +101,7 @@ public class RepositorySocket implements IRepositorySocket {
                 cs = null;
                 in = null;
                 out = null;
+                Timber.tag(TAG).e("User disconnected from server");
             })
         ).subscribeOn(Schedulers.io())
         .onErrorResumeNext(throwable -> {
@@ -122,7 +114,7 @@ public class RepositorySocket implements IRepositorySocket {
         response = Observable.interval(50, TimeUnit.MILLISECONDS, Schedulers.io())
             .flatMap(f -> Observable.just(in.available())
             .doOnError(throwable -> {
-                Timber.tag(TAG).e("repository handle message %s", throwable.getMessage());
+                Timber.tag(TAG).e("repository disconnect from server %s", throwable.getMessage());
                 onExit();
             }).filter(v -> v > 0))
             .flatMap(v -> {

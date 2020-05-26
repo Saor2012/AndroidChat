@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 public interface IMainPresenter {
     interface View extends ActivityView {
         String getText();
+        String getChatText();
         void onFinish(int code);
         void setText(String message);
     }
