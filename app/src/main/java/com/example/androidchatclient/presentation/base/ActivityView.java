@@ -1,7 +1,5 @@
 package com.example.androidchatclient.presentation.base;
 
-import com.example.androidchatclient.presentation.fragment.LoginFragment;
-
 import dagger.android.support.DaggerAppCompatDialogFragment;
 import dagger.android.support.DaggerFragment;
 

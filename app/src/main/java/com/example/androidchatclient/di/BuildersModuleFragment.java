@@ -1,13 +1,8 @@
 package com.example.androidchatclient.di;
 
-import com.example.androidchatclient.presentation.activity.IMainPresenter;
-import com.example.androidchatclient.presentation.activity.MainActivity;
-import com.example.androidchatclient.presentation.activity.MainPresenter;
-import com.example.androidchatclient.presentation.fragment.ILoginPresenter;
-import com.example.androidchatclient.presentation.fragment.LoginFragment;
-import com.example.androidchatclient.presentation.fragment.LoginPresenter;
+import com.example.androidchatclient.presentation.fragment.chat.ChatFragment;
+import com.example.androidchatclient.presentation.fragment.login.LoginFragment;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -16,4 +11,7 @@ public abstract class BuildersModuleFragment {
     //LoginFragment
     @ContributesAndroidInjector(modules = LoginModule.class)
     abstract LoginFragment bingLoginFragment();
+
+    @ContributesAndroidInjector(modules = ChatModule.class)
+    abstract ChatFragment bingChatFragment();
 }

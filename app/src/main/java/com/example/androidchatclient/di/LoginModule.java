@@ -1,8 +1,8 @@
 package com.example.androidchatclient.di;
 
-import com.example.androidchatclient.presentation.fragment.ILoginPresenter;
-import com.example.androidchatclient.presentation.fragment.LoginFragment;
-import com.example.androidchatclient.presentation.fragment.LoginPresenter;
+import com.example.androidchatclient.presentation.fragment.login.ILoginPresenter;
+import com.example.androidchatclient.presentation.fragment.login.LoginFragment;
+import com.example.androidchatclient.presentation.fragment.login.LoginPresenter;
 
 import dagger.Binds;
 import dagger.Module;

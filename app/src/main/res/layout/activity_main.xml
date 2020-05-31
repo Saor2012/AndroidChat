@@ -14,10 +14,12 @@
         tools:context=".presentation.activity.MainActivity">
 
         <include
-            layout="@layout/main_content"
             android:id="@+id/include_main_content"
+            layout="@layout/main_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="-69dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

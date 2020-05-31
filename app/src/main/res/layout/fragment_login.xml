@@ -5,14 +5,14 @@
     <data>
         <variable
             name="event"
-            type="com.example.androidchatclient.presentation.fragment.ILoginPresenter.Presenter" />
+            type="com.example.androidchatclient.presentation.fragment.login.ILoginPresenter.Presenter" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundColorWhite"
-        tools:context=".presentation.fragment.LoginFragment">
+        tools:context=".presentation.fragment.login.LoginFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/login_textView"

@@ -13,6 +13,7 @@ import timber.log.Timber;
 public class MainInteractor extends BaseInteractor implements IMainInteractor {
     @Inject
     IRepositorySocket repository;
+    private int IsConnect = 0;
     private static final String TAG = "MainInteractor";
     @Inject
     public MainInteractor() {}
@@ -23,7 +24,9 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
         if (name.contains(ConstantApp.TAG_LOGIN)) {
             return repository.onConnect(name)
                 .doOnError(Timber::e)
-                .compose(applyCompletableSchedulers());
+                .doOnComplete(() -> {
+                    IsConnect = 1;
+                }).compose(applyCompletableSchedulers());
         } else {
             Timber.tag(TAG).e("Error login command");
             return Completable.defer(() ->
@@ -54,5 +57,10 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
     public Completable exit() {
         return Completable.fromAction(() -> repository.onExit())
             .doOnError(Timber::e);
+    }
+
+    @Override
+    public int getIsConnect() {
+        return IsConnect;
     }
 }

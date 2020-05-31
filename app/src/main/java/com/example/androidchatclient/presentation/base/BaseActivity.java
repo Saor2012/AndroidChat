@@ -92,10 +92,10 @@ public abstract class BaseActivity<Binding extends ViewDataBinding> extends Dagg
     }
 
     protected void removeAllFragment() {
-        if ((getSupportFragmentManager() != null) && (getSupportFragmentManager().findFragmentById(R.id.main_content)) != null) {
+        if ((getSupportFragmentManager() != null) && (getSupportFragmentManager().findFragmentById(R.id.content)) != null) {
             this.getSupportFragmentManager()
                     .beginTransaction()
-                    .remove(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.main_content)))
+                    .remove(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.content)))
                     .commit();
         }
     }

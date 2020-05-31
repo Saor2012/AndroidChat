@@ -1,4 +1,4 @@
-package com.example.androidchatclient.presentation.fragment;
+package com.example.androidchatclient.presentation.fragment.login;
 
 import com.example.androidchatclient.presentation.base.ActivityView;
 import com.example.androidchatclient.presentation.base.BasePresenter;

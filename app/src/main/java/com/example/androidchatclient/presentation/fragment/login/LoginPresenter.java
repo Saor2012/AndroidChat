@@ -1,6 +1,4 @@
-package com.example.androidchatclient.presentation.fragment;
-
-import android.view.accessibility.AccessibilityRecord;
+package com.example.androidchatclient.presentation.fragment.login;
 
 import com.example.androidchatclient.ConstantApp;
 import com.example.androidchatclient.domain.IMainInteractor;
@@ -16,15 +14,14 @@ public class LoginPresenter implements ILoginPresenter.Presenter {
     ILoginPresenter.View view;
     @Inject
     IMainInteractor interactor;
+    @Inject
+    IRouter router;
 
     @Inject
-    public LoginPresenter() {
-    }
+    public LoginPresenter() {}
 
     @Override
-    public void onStart() {
-
-    }
+    public void onStart() {}
 
     @Override
     public void onStop() {
@@ -49,6 +46,7 @@ public class LoginPresenter implements ILoginPresenter.Presenter {
                     public void onComplete() {
                         Timber.e("Success connect");
                         view.login();
+//                        router.transaction(ConstantApp.MY_MAIN_RES, null, "", false);
                     }
 
                     @Override

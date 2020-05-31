@@ -13,7 +13,6 @@ import javax.inject.Singleton;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Route;
 
 @Module
 public abstract class AppModule {

@@ -8,4 +8,5 @@ public interface IMainInteractor {
     Completable send(String message);
     Observable<String> read();
     Completable exit();
+    int getIsConnect();
 }

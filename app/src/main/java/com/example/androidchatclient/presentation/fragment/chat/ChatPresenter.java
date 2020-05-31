@@ -1,4 +1,4 @@
-package com.example.androidchatclient.presentation.activity;
+package com.example.androidchatclient.presentation.fragment.chat;
 
 import com.example.androidchatclient.ConstantApp;
 import com.example.androidchatclient.domain.IMainInteractor;
@@ -16,51 +16,30 @@ import timber.log.Timber;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class MainPresenter implements IMainPresenter.Presenter {
+public class ChatPresenter implements IChatPresenter.Presenter  {
     @Inject
-    IMainPresenter.View view;
+    IChatPresenter.View view;
     @Inject
     IRouter router;
     @Inject
     IMainInteractor interactor;
     private CompositeDisposable disposable;
+
     @Inject
-    public MainPresenter() {
+    public ChatPresenter() {}
 
+    @Override
+    public void init() {
+        initListener();
     }
 
     @Override
-    public void onStart() {
+    public void connect(String name) {
 
-    }
-
-    @Override
-    public void onStop() {
-        if (view != null) view = null;
-    }
-
-    @Override
-    public void init() throws Throwable {
-        router.transaction(ConstantApp.MY_FRAGMENT_LOGIN, null, "login_fragment", false);
-    }
-
-    @Override
-    public Completable connect(String name) {
-        return null;
-    }
-
-    @Override
-    public Completable send(String message) {
-        return null;
     }
 
     @Override
     public Observable<String> read() {
-        return null;
-    }
-
-    @Override
-    public Completable exit() {
         return null;
     }
 
@@ -74,17 +53,23 @@ public class MainPresenter implements IMainPresenter.Presenter {
             interactor.send(message).subscribe(new DisposableCompletableObserver() {
                 @Override
                 public void onComplete() {
-                    disposable = new CompositeDisposable();
-                    listener();
+                    if (disposable != null) {
+                        initListener();
+                    }
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    Timber.e("Error on send message: %s", e.getMessage());
-//                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    Timber.tag(TAG).e("Error on send message: %s", e.getMessage());
                 }
             });
         }
+    }
+
+    private void initListener() {
+        disposable = new CompositeDisposable();
+        listener();
+        Timber.tag(TAG).e("Start listening for new messagers.");
     }
 
     private void listener() {
@@ -107,16 +92,26 @@ public class MainPresenter implements IMainPresenter.Presenter {
 
     private void handlerExit() {
         interactor.exit()
-                .subscribe(new DisposableCompletableObserver() {
-                    @Override
-                    public void onComplete() {
-                        Timber.e("onExit() onComplete");
-                    }
+            .subscribe(new DisposableCompletableObserver() {
+                @Override
+                public void onComplete() {
+                    Timber.e("onExit() onComplete");
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e("onExit() onError - %s", e.getMessage());
-                    }
-                });
+                @Override
+                public void onError(Throwable e) {
+                    Timber.e("onExit() onError - %s", e.getMessage());
+                }
+            });
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+        if (view != null) view = null;
     }
 }
