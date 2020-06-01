@@ -2,6 +2,8 @@ package com.example.androidchatclient;
 
 public final class ConstantApp {
     public final static String ERROR_READ = "Error read output data";
+    public final static String ERROR_SEND = "Error send data";
+    public final static String ERROR_EXIT = "Error exit from server";
     public final static String ERROR_LOGIN = "Error found 'login:' at connect function";
     public static final String TAG_LOGIN = "login:";
     public static final String TAG_MESSAGE = "msg:";

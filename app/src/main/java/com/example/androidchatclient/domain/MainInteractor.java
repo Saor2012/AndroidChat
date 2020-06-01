@@ -37,8 +37,9 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
 
     @Override
     public Completable send(String message) {
-        return Completable.fromAction(() -> repository.onSend(message))
-            .doOnError(Timber::e);
+        return repository.onSend(message)
+            .doOnError(Timber::e)
+            .compose(applyCompletableSchedulers());
     }
 
     @Override
@@ -55,8 +56,9 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
 
     @Override
     public Completable exit() {
-        return Completable.fromAction(() -> repository.onExit())
-            .doOnError(Timber::e);
+        return repository.onExit()
+            .doOnError(Timber::e)
+            .compose(applyCompletableSchedulers());
     }
 
     @Override

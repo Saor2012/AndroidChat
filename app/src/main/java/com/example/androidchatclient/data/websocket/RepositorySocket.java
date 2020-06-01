@@ -30,6 +30,7 @@ public class RepositorySocket implements IRepositorySocket {
     private DataInputStream in;
     private Socket cs;
     private Observable<String> response;
+    private String userName;
 
     @Inject
     public RepositorySocket() {}
@@ -50,6 +51,7 @@ public class RepositorySocket implements IRepositorySocket {
                 }
                 if (cs != null && in != null && out != null) {
                     writeUTF(name);
+                    userName = name;
                     Timber.e("User join: %s", name);
                 } else {
                     Timber.e("Check socket connection");
@@ -73,9 +75,16 @@ public class RepositorySocket implements IRepositorySocket {
                     Timber.tag(TAG).e("DataOutputStream out is null");
                     Completable.error(new Throwable("missed out object"));
                 }
+                Timber.tag(TAG).e("Message: %s", message);
                 writeUTF(ConstantApp.TAG_MESSAGE.concat(message));
             })
-        ).subscribeOn(Schedulers.io());
+        )
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread());
+        .onErrorResumeNext(throwable -> {
+            Timber.tag(TAG).e("Handle catched error: %s", ConstantApp.ERROR_SEND);
+            return Completable.complete();
+        });
     }
 
     @Override
@@ -101,9 +110,11 @@ public class RepositorySocket implements IRepositorySocket {
                 cs = null;
                 in = null;
                 out = null;
-                Timber.tag(TAG).e("User disconnected from server");
+                Timber.tag(TAG).e("User disconnected from server %s", userName);
             })
-        ).subscribeOn(Schedulers.io())
+        )
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
         .onErrorResumeNext(throwable -> {
             Timber.tag(TAG).e("Handle error at close client connaction: %s", ConstantApp.ERROR_READ);
             return Completable.complete();
@@ -114,7 +125,7 @@ public class RepositorySocket implements IRepositorySocket {
         response = Observable.interval(50, TimeUnit.MILLISECONDS, Schedulers.io())
             .flatMap(f -> Observable.just(in.available())
             .doOnError(throwable -> {
-                Timber.tag(TAG).e("repository disconnect from server %s", throwable.getMessage());
+                Timber.tag(TAG).e("Repository disconnect from server %s", throwable.getMessage());
                 onExit();
             }).filter(v -> v > 0))
             .flatMap(v -> {

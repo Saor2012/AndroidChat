@@ -67,7 +67,7 @@ public class ChatFragment extends DaggerFragment implements IChatPresenter.View 
 
     @Override
     public String getChatText() {
-        return String.valueOf(binding.msgOutput.getText())  ;
+        return String.valueOf(binding.textInput.getText());
     }
 
     @Override
@@ -82,6 +82,12 @@ public class ChatFragment extends DaggerFragment implements IChatPresenter.View 
 
     @Override
     public void setText(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        if (!message.isEmpty()) {
+            binding.textInput.setText(message);
+            Timber.tag(TAG).e("Set up new message: %s", message);
+//            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        } else {
+            Timber.tag(TAG).e("New message is empty: %s", message);
+        }
     }
 }

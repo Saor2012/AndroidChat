@@ -24,6 +24,7 @@ public class ChatPresenter implements IChatPresenter.Presenter  {
     @Inject
     IMainInteractor interactor;
     private CompositeDisposable disposable;
+    private static final String TAG = "ChatPresenter";
 
     @Inject
     public ChatPresenter() {}
@@ -53,7 +54,7 @@ public class ChatPresenter implements IChatPresenter.Presenter  {
             interactor.send(message).subscribe(new DisposableCompletableObserver() {
                 @Override
                 public void onComplete() {
-                    if (disposable != null) {
+                    if (disposable == null) {
                         initListener();
                     }
                 }
@@ -63,31 +64,36 @@ public class ChatPresenter implements IChatPresenter.Presenter  {
                     Timber.tag(TAG).e("Error on send message: %s", e.getMessage());
                 }
             });
+        } else {
+            Timber.tag(TAG).e("Message is empty: %s", message);
         }
     }
 
     private void initListener() {
-        disposable = new CompositeDisposable();
+        if (disposable == null) {
+            disposable = new CompositeDisposable();
+        }
         listener();
         Timber.tag(TAG).e("Start listening for new messagers.");
     }
 
     private void listener() {
-        String text = view.getChatText();
+        Timber.tag(TAG).e("Get chat: %s", view.getChatText());
         AtomicReference<String> textarea = new AtomicReference<>("");
         disposable.add(interactor.read()
             .subscribe(v -> {
-                Timber.tag(TAG).e("Recieved message: %s", v);
+                String text = view.getChatText();
                 textarea.set(String.valueOf(text));
-                textarea.get().concat(v);
-            }));
-        view.setText(textarea.get());
+                textarea.set(textarea.get().concat(v).concat("\n"));
+                Timber.tag(TAG).e("New message: %s", textarea.get());
+                view.setText(textarea.get());
+            },throwable -> Timber.tag(TAG).e("Error on get msg: %s", throwable.getMessage())));
     }
 
     @Override
     public void onExit() {
         handlerExit();
-        view.onFinish(ConstantApp.FINISH_ACTIVITY_CODE);
+//        view.onFinish(ConstantApp.FINISH_ACTIVITY_CODE);
     }
 
     private void handlerExit() {
@@ -95,12 +101,12 @@ public class ChatPresenter implements IChatPresenter.Presenter  {
             .subscribe(new DisposableCompletableObserver() {
                 @Override
                 public void onComplete() {
-                    Timber.e("onExit() onComplete");
+                    Timber.tag(TAG).e("onExit() onComplete");
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    Timber.e("onExit() onError - %s", e.getMessage());
+                    Timber.tag(TAG).e("onExit() onError - %s", e.getMessage());
                 }
             });
     }

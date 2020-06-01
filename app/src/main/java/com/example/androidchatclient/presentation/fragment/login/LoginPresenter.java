@@ -16,6 +16,7 @@ public class LoginPresenter implements ILoginPresenter.Presenter {
     IMainInteractor interactor;
     @Inject
     IRouter router;
+    private static final String TAG = "LoginPresenter";
 
     @Inject
     public LoginPresenter() {}
