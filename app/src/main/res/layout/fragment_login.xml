@@ -15,7 +15,7 @@
         tools:context=".presentation.fragment.login.LoginFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/login_textView"
+            android:id="@+id/loginTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/menu_marging_left_right"
@@ -30,10 +30,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_connectBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/loginConnectBtn" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/login_textView2"
+            android:id="@+id/loginTextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/menu_marging_left_right"
@@ -44,41 +44,57 @@
             android:paddingTop="@dimen/menu_padding"
             android:paddingRight="@dimen/menu_padding"
             android:paddingBottom="@dimen/menu_padding"
-            android:text="Enter your login"
-            app:layout_constraintBottom_toTopOf="@+id/login_editText"
+            android:text="@string/fragment_login_text_login"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_connectBtn"
+            android:id="@+id/loginConnectBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/menu_marging_btn_left_right"
             android:layout_marginTop="@dimen/menu_marging_btn_top"
+            android:layout_marginBottom="@dimen/menu_marging_btn_bottom"
+            android:onClick="@{() -> event.onLogin()}"
+            android:text="@string/fragment_login_text_login"
+            app:layout_constraintBottom_toTopOf="@+id/loginTextView"
+            app:layout_constraintEnd_toStartOf="@+id/loginExitBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginEditText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginExitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/menu_marging_btn_top"
             android:layout_marginEnd="@dimen/menu_marging_btn_left_right"
             android:layout_marginBottom="@dimen/menu_marging_btn_bottom"
-            android:text="Login"
-            android:onClick="@{() -> event.onLogin()}"
-            app:layout_constraintBottom_toTopOf="@+id/login_textView"
+            android:onClick="@{() -> event.onExit()}"
+            android:text="@string/fragment_login_text_exit"
+            app:layout_constraintBottom_toTopOf="@+id/loginTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_editText" />
+            app:layout_constraintStart_toEndOf="@+id/loginConnectBtn"
+            app:layout_constraintTop_toBottomOf="@+id/loginEditText"
+            app:layout_constraintVertical_bias="0.479" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/login_editText"
+            android:id="@+id/loginEditText"
             android:layout_width="145dp"
-            android:layout_height="40dp"
+            android:layout_height="46dp"
+            android:lines="1"
+            android:maxLength="65"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/login_connectBtn"
+            app:layout_constraintBottom_toTopOf="@+id/loginConnectBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/loginTextView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

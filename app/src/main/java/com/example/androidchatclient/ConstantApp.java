@@ -5,9 +5,15 @@ public final class ConstantApp {
     public final static String ERROR_SEND = "Error send data";
     public final static String ERROR_EXIT = "Error exit from server";
     public final static String ERROR_LOGIN = "Error found 'login:' at connect function";
+
+    public final static String WARNING_SEND = "Warning: Message length up than 150 symbols.";
+    public final static String WARNING_SEND_TEXT = "Message length up than 150 symbols";
+
     public static final String TAG_LOGIN = "login:";
     public static final String TAG_MESSAGE = "msg:";
     public static final String TAG_EXIT = "exit:";
+    public static final String TIME_TEMPLETE = "EEE, dd:MM:yyyy HH:mm:ss";
+    public static final String TIME_TEMPLETE_SHORT = "dd:MM:yyyy HH:mm:ss";
 
     public static final String MY_FRAGMENT_LOGIN = "my_fragment";
     public static final String MY_FRAGMENT_CHAT = "my_fragment_chat";

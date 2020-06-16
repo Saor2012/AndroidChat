@@ -9,12 +9,15 @@ import com.example.androidchatclient.presentation.activity.MainPresenter;
 import dagger.Binds;
 import dagger.Module;
 
+
 @Module
 public abstract class MainModule {
     @Binds
     abstract IMainPresenter.View bindMainActivity(MainActivity view);
     @Binds
     abstract IMainPresenter.Presenter bindMainPresenter(MainPresenter presenter);
+    @MainScope
     @Binds
     abstract IMainInteractor bindInteractor(MainInteractor interactor);
+
 }

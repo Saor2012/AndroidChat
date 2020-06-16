@@ -11,7 +11,7 @@ public abstract class BuildersModuleFragment {
     //LoginFragment
     @ContributesAndroidInjector(modules = LoginModule.class)
     abstract LoginFragment bingLoginFragment();
-
+    //ChatFragment
     @ContributesAndroidInjector(modules = ChatModule.class)
     abstract ChatFragment bingChatFragment();
 }

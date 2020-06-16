@@ -1,7 +1,75 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+    ext {
+        daggerVersion = "2.25.2"
+        gsonVersion = "2.8.6"
+        rxjavaVersion = "2.2.15"
+        rxjavaAndroidVersion = "2.1.1"
+        timberVersion = "4.7.1"
+        appcompatVersion = "1.1.0"
+        constraintlayoutVersion = "1.1.3"
+        spstorageVersion = "3.6.0"
+        rvVersion = "1.1.0"
+        rvselectionVersion = "1.0.0"
+        gsonVersion = "2.8.6"
+
+        support = [appcompat: "androidx.appcompat:appcompat:${appcompatVersion}",
+                   constraintlayout: "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}",
+                   junit: "junit:junit:4.12",
+                   extjunit: "androidx.test.ext:junit:1.1.1",
+                   espcore: "androidx.test.espresso:espresso-core:3.2.0"]
+
+        logTimber = [timber: "com.jakewharton.timber:timber:${timberVersion}"]
+
+        rxjava = [rxjava: "io.reactivex.rxjava2:rxjava:${rxjavaVersion}",
+                  rxandroid: "io.reactivex.rxjava2:rxandroid:${rxjavaAndroidVersion}",]
+
+        gson = [gson: "com.google.code.gson:gson:${gsonVersion}"]
+
+        dagger = [dagger: "com.google.dagger:dagger:${daggerVersion}",
+                  daggerAndroid: "com.google.dagger:dagger-android:${daggerVersion}",
+                  daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+                  daggerAndroidSupport: "com.google.dagger:dagger-android-support:${daggerVersion}",
+                  daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}"]
+
+        spstorage = [storage: "com.journeyapps:zxing-android-embedded:${spstorageVersion}"]
+
+        recycleview = [rv: "androidx.recyclerview:recyclerview:${rvVersion}",
+                       rvSelection: "androidx.recyclerview:recyclerview-selection:${rvselectionVersion}"]
+/*        //Module
+        implementation project(path: ':data')
+        implementation project(path: ':presentation')
+        //Support
+        implementation support.appcompat
+        implementation support.design
+        implementation support.support
+        implementation support.annotation
+        //Logger
+        implementation loggerTim.timber
+        //Dagger
+        implementation dagger.daggerCore
+        implementation dagger.daggerAndroid
+        implementation dagger.androidSupport
+        annotationProcessor dagger.daggerCompiler
+        annotationProcessor dagger.androidProcessor
+        //RX
+        implementation rxjava.rxjava
+        implementation rxjava.rxandroid
+        //Gson
+        implementation gson.gson
+        annotationProcessor gson.autoValue
+        compileOnly gson.autoValueAnnotations
+
+
+        //Test
+        testImplementation test.junit
+        androidTestImplementation test.testRunner
+        androidTestImplementation test.testEspresso
+        testAnnotationProcessor test.testAnnotationProcessorDagger
+        androidTestAnnotationProcessor test.androidTestAnnotationProcessorDagger
+        androidTestImplementation test.testWorker*/
+    }
     repositories {
         google()
         jcenter()

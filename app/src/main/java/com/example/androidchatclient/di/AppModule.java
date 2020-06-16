@@ -14,6 +14,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
+
 @Module
 public abstract class AppModule {
     @Singleton
@@ -26,9 +27,13 @@ public abstract class AppModule {
         return new RepositorySocket();
     }
 
+//    @Singleton
+//    @Provides
+//    static IRouter provideRouter() {
+//        return new Router();
+//    }
+
     @Singleton
-    @Provides
-    static IRouter provideRouter() {
-        return new Router();
-    }
+    @Binds
+    abstract IRouter provideRouter(Router router);
 }

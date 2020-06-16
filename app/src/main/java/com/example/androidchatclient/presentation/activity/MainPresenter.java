@@ -21,13 +21,12 @@ public class MainPresenter implements IMainPresenter.Presenter {
     IMainPresenter.View view;
     @Inject
     IRouter router;
-    @Inject
-    IMainInteractor interactor;
+//    @Inject
+//    IMainInteractor interactor;
     private CompositeDisposable disposable;
-    @Inject
-    public MainPresenter() {
 
-    }
+    @Inject
+    public MainPresenter() {}
 
     @Override
     public void onStart() {
@@ -44,79 +43,31 @@ public class MainPresenter implements IMainPresenter.Presenter {
         router.transaction(ConstantApp.MY_FRAGMENT_LOGIN, null, "login_fragment", false);
     }
 
-    @Override
-    public Completable connect(String name) {
-        return null;
-    }
+//    @Override
+//    public Completable connect(String name) {
+//        return null;
+//    }
 
-    @Override
-    public Completable send(String message) {
-        return null;
-    }
+//    @Override
+//    public void onExit() {
+//        handlerExit();
+//        view.onFinish(ConstantApp.FINISH_ACTIVITY_CODE);
+//    }
 
-    @Override
-    public Observable<String> read() {
-        return null;
-    }
-
-    @Override
-    public Completable exit() {
-        return null;
-    }
-
-    @Override
-    public void onSend() {
-        handlerSend(view.getText());
-    }
-
-    private void handlerSend(String message) {
-        if (!message.equals("") && message.length() > 0) {
-            interactor.send(message).subscribe(new DisposableCompletableObserver() {
-                @Override
-                public void onComplete() {
-                    disposable = new CompositeDisposable();
-                    listener();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Timber.e("Error on send message: %s", e.getMessage());
-//                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    }
-
-    private void listener() {
-        String text = view.getChatText();
-        AtomicReference<String> textarea = new AtomicReference<>("");
-        disposable.add(interactor.read()
-            .subscribe(v -> {
-                Timber.tag(TAG).e("Recieved message: %s", v);
-                textarea.set(String.valueOf(text));
-                textarea.get().concat(v);
-            }));
-        view.setText(textarea.get());
-    }
-
-    @Override
-    public void onExit() {
-        handlerExit();
-        view.onFinish(ConstantApp.FINISH_ACTIVITY_CODE);
-    }
-
-    private void handlerExit() {
-        interactor.exit()
-                .subscribe(new DisposableCompletableObserver() {
-                    @Override
-                    public void onComplete() {
-                        Timber.e("onExit() onComplete");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e("onExit() onError - %s", e.getMessage());
-                    }
-                });
-    }
+//    private void handlerExit() {
+//        if (interactor.getIsConnect() == 1) {
+//            interactor.exit()
+//                .subscribe(new DisposableCompletableObserver() {
+//                    @Override
+//                    public void onComplete() {
+//                        Timber.e("onExit() onComplete");
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Timber.e("onExit() onError - %s", e.getMessage());
+//                    }
+//                });
+//        }
+//    }
 }

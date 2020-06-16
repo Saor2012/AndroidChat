@@ -1,9 +1,5 @@
 package com.example.androidchatclient.presentation.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
 import com.example.androidchatclient.ConstantApp;
 import com.example.androidchatclient.R;
 import com.example.androidchatclient.databinding.ActivityMainBinding;
@@ -90,32 +86,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
 
     }
 
-    @Override
-    public String getText() {
-        return null;
-//        return String.valueOf(getBinding().includeMainContent.msgOutput);
-    }
-
-    @Override
-    public String getChatText() {
-        return null;
-//        return String.valueOf(getBinding().includeMainContent.textInput);
-    }
-
-    @Override
-    public void onFinish(int code) {
-        if (code == ConstantApp.FINISH_ACTIVITY_CODE) {
-            Timber.tag(TAG).e("Finish main activity");
-            finish();
-        } else {
-            Timber.tag(TAG).e("Invalid code to finish main activity");
-        }
-    }
-
-    @Override
-    public void setText(String message) {
-//        String mainText = String.valueOf(getBinding().includeMainContent.textInput.getText());
-//        mainText.concat("/n").concat(message);
-//        getBinding().includeMainContent.textInput.setText(message);
-    }
+//    @Override
+//    public void onFinish(int code) {
+//        if (code == ConstantApp.FINISH_ACTIVITY_CODE) {
+//            Timber.tag(TAG).e("Finish main activity");
+//            finish();
+//        } else {
+//            Timber.tag(TAG).e("Invalid code to finish main activity");
+//        }
+//    }
 }

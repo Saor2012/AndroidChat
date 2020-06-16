@@ -10,22 +10,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class RepositorySocket implements IRepositorySocket {
     private final static String TAG = "RepositorySocket";
-    protected final String adress = "10.0.2.2";
-    protected final int port = 5599;
     private DataOutputStream out;
     private DataInputStream in;
     private Socket cs;
@@ -40,8 +34,9 @@ public class RepositorySocket implements IRepositorySocket {
     public Completable onConnect(String name) {
         return Completable.defer(() ->
             Completable.fromAction(() -> {
-                try {
-                    cs = new Socket(adress, port);
+                /*try {
+//                    cs = new Socket(adress, port);
+                    cs = new Socket(BuildConfig.BASE_URL , BuildConfig.SERVER_PORT);
                     out = new DataOutputStream(cs.getOutputStream());
                     in = new DataInputStream(cs.getInputStream());
                 } catch (SocketException e) {
@@ -49,18 +44,27 @@ public class RepositorySocket implements IRepositorySocket {
                     Completable.error(new Exception("Socket got exception(SocketException)"));
                     return;
                 }
-                if (cs != null && in != null && out != null) {
+                if (cs != null && out != null) {
                     writeUTF(name);
                     userName = name;
                     Timber.e("User join: %s", name);
                 } else {
                     Timber.e("Check socket connection");
                     Completable.error(new Exception("Socket is null"));
+                }*/
+                cs = new Socket(BuildConfig.BASE_URL , BuildConfig.SERVER_PORT);
+                out = new DataOutputStream(cs.getOutputStream());
+                in = new DataInputStream(cs.getInputStream());
+
+                if (cs != null && out != null) {
+                    writeUTF(name);
+                    userName = name;
+                    Timber.e("User join: %s", name);
+                } else {
+                    Timber.e("Check socket connection");
+//                    Completable.error(new Exception("Socket is null"));
                 }
-        }))
-//                .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread())
-        .onErrorResumeNext(throwable -> {
+        })).onErrorResumeNext(throwable -> {
            Timber.tag(TAG).e("Handle catched error: %s", ConstantApp.ERROR_READ);
            return Completable.complete();
         });
@@ -78,10 +82,7 @@ public class RepositorySocket implements IRepositorySocket {
                 Timber.tag(TAG).e("Message: %s", message);
                 writeUTF(ConstantApp.TAG_MESSAGE.concat(message));
             })
-        )
-//        .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread());
-        .onErrorResumeNext(throwable -> {
+        ).onErrorResumeNext(throwable -> {
             Timber.tag(TAG).e("Handle catched error: %s", ConstantApp.ERROR_SEND);
             return Completable.complete();
         });
@@ -91,7 +92,6 @@ public class RepositorySocket implements IRepositorySocket {
     public Observable<String> onRead() {
         if (response == null) getResponse();
         return response.filter(v -> v != null && !v.isEmpty())
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnError(Timber::e)
             .onErrorResumeNext(throwable -> {
                 Timber.tag(TAG).e("Handle error at read server message: %s", ConstantApp.ERROR_READ);
@@ -112,17 +112,14 @@ public class RepositorySocket implements IRepositorySocket {
                 out = null;
                 Timber.tag(TAG).e("User disconnected from server %s", userName);
             })
-        )
-//        .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread())
-        .onErrorResumeNext(throwable -> {
+        ).onErrorResumeNext(throwable -> {
             Timber.tag(TAG).e("Handle error at close client connaction: %s", ConstantApp.ERROR_READ);
             return Completable.complete();
         });
     }
 
     private void getResponse() {
-        response = Observable.interval(50, TimeUnit.MILLISECONDS, Schedulers.io())
+        response = Observable.interval(50, TimeUnit.MILLISECONDS)
             .flatMap(f -> Observable.just(in.available())
             .doOnError(throwable -> {
                 Timber.tag(TAG).e("Repository disconnect from server %s", throwable.getMessage());
@@ -142,6 +139,7 @@ public class RepositorySocket implements IRepositorySocket {
 //            onExit();
             return;
         }
+        Timber.tag(TAG).e("Request: %s", str);
         out.writeUTF(str);
         out.flush();
     }

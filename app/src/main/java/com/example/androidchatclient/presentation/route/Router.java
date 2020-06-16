@@ -13,11 +13,9 @@ import javax.inject.Inject;
 
 public class Router implements IRouter{
     private ActivityView view;
-    @Inject ILoginPresenter.Presenter loginfragment;
 
     @Inject
-    public Router() {
-    }
+    public Router() {}
 
     @Override
     public void onStart(ActivityView view) {
@@ -26,23 +24,21 @@ public class Router implements IRouter{
 
     @Override
     public void onStop() {
-        if (this.view != null)
-            view = null;
+        if (this.view != null) view = null;
     }
 
     @Override
     public void transaction(String routeFragment, BaseModel object, String jsonObject, boolean isBackStack) throws Throwable {
         switch (routeFragment) {
-            case ConstantApp.MY_FRAGMENT_LOGIN: view.transitionFragment(LoginFragment.newInstance(jsonObject, null), getResourseLayout(ConstantApp.MAIN_RES));
+            case ConstantApp.MY_FRAGMENT_LOGIN: view.transitionFragment(LoginFragment.newInstance(jsonObject, object), getResourseLayout(ConstantApp.MAIN_RES));
                 break;
-            case ConstantApp.MY_FRAGMENT_CHAT : view.transitionFragment(ChatFragment.newInstance(jsonObject, null), getResourseLayout(ConstantApp.MAIN_RES));
+            case ConstantApp.MY_FRAGMENT_CHAT : view.transitionFragment(ChatFragment.newInstance(jsonObject, object), getResourseLayout(ConstantApp.MAIN_RES));
                 break;
 //            case ConstantApp.MY_MAIN_RES : view.closeFragment(LoginFragment.getInstance());
 //                break;
             //New fragments
             default: //handle exception
                 throw new Throwable("Error ?");
-
         }
     }
 

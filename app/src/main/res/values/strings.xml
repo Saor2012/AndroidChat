@@ -7,4 +7,12 @@
     <string name="mainActivity_chat_sendBtn">Send</string>
     <string name="mainActivity_chat_exitBtn">Exit</string>
     <string name="mainActivity_chat_messageFieldHint">Send message</string>
+
+    <string name="fragment_login_text_login">Enter your login</string>
+    <string name="fragment_login_text_connect">Login</string>
+    <string name="fragment_login_text_exit">Exit</string>
+
+    <string name="fragment_chat_hint_login">User login</string>
+    <string name="fragment_chat_hint_date">Msg date</string>
+    <string name="fragment_chat_hint_msg">User msg</string>
 </resources>
